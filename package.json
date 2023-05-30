@@ -1,0 +1,37 @@
+{
+  "name": "notes-gallery-backend",
+  "version": "1.0.0",
+  "description": "A backend setup using mongodb and express serrver",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mern-stacked/notes-gallery-backend.git"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "react",
+    "node"
+  ],
+  "author": "Eshwa Gadkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mern-stacked/notes-gallery-backend/issues"
+  },
+  "homepage": "https://github.com/mern-stacked/notes-gallery-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "mongoose": "^7.2.0",
+    "mongoose-unique-validator": "^4.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
