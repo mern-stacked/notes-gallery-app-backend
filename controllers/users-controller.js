@@ -1,7 +1,8 @@
 const { validationResult } = require('express-validator');
-
 const HttpError = require('../models/http-error');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+
 
 // Get all the users
 const getUsers = async (req, res, next) => {
@@ -27,7 +28,7 @@ const signup = async (req, res, next) => {
            new HttpError('Invalid inputs passed, please check entered data.', 422)
         );
     }
-    const { name, email, password, image, designation } = req.body;
+    const { name, email, password, designation } = req.body;
 
     let userExists;
     try {
@@ -52,13 +53,15 @@ const signup = async (req, res, next) => {
         name,
         email,
         password,
-        image,
         designation,
         notes: []
     });
 
      try {
         await createdUser.save();
+        const token = jwt.sign({ userId: createdUser._id }, 'MY_SECRET_KEY');
+        res.status(201).json( { user: createdUser.toObject({ getters: true }), token } );
+        // res.send({ token })
     } catch (err) {
         const error = new HttpError(
             'User Registration Failed. Please Try Again..',
@@ -67,7 +70,6 @@ const signup = async (req, res, next) => {
         return next(error);
     } 
 
-    res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
 // Login Controller

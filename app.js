@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
 const notesRoutes = require('./routes/notes-routes');
 const userRoutes = require('./routes/users-routes');
@@ -41,5 +40,5 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT
 
 app.listen(PORT, ()=> {
-    console.log("Server is up and running on port" + PORT)
+    console.log("Server is up and running on port: " + PORT)
 })
