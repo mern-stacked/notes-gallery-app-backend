@@ -60,7 +60,8 @@ const signup = async (req, res, next) => {
      try {
         await createdUser.save();
         const token = jwt.sign({ userId: createdUser._id }, 'MY_SECRET_KEY');
-        res.status(201).json( { user: createdUser.toObject({ getters: true }), token } );
+        res.status(201).json( { token } );
+        // res.status(201).json( { user: createdUser.toObject({ getters: true }), token } );
         // res.send({ token })
     } catch (err) {
         const error = new HttpError(
@@ -74,7 +75,12 @@ const signup = async (req, res, next) => {
 
 // Login Controller
 const login = async (req, res, next) => {
+
     const {email, password} = req.body;
+
+    if(!email || !password){
+        return res.status(422).send({ error: 'Must provide email and password.'})
+    }
     
     let existingUser; 
     try{
@@ -87,15 +93,18 @@ const login = async (req, res, next) => {
         return next(error);
     }
 
-    if(!existingUser || existingUser.password !== password){
-        const error = new HttpError(
-            'Invalid credentials.',
-            401
-        );
-        return next(error);
+    if(!existingUser){
+        return res.status(422).send({ error: 'Invalid password or email' });
     }
 
-    res.json({ message: 'Logged In!'});
+    try{
+        await existingUser.comparePassword(password);
+        const token = jwt.sign({ userId: existingUser._id }, 'MY_SECRET_KEY');
+        res.send( { token });
+    } catch (err) {
+        return res.status(422).send({ error: 'Invalid password or email' });
+    } 
+
 }
 
 exports.getUsers = getUsers;
