@@ -60,8 +60,8 @@ const signup = async (req, res, next) => {
      try {
         await createdUser.save();
         const token = jwt.sign({ userId: createdUser._id }, 'MY_SECRET_KEY');
-        res.status(201).json( { token } );
-        // res.status(201).json( { user: createdUser.toObject({ getters: true }), token } );
+        // res.status(201).json( { token } );
+        res.status(201).json( { user: createdUser.toObject({ getters: true }), token } );
         // res.send({ token })
     } catch (err) {
         const error = new HttpError(
@@ -100,7 +100,7 @@ const login = async (req, res, next) => {
     try{
         await existingUser.comparePassword(password);
         const token = jwt.sign({ userId: existingUser._id }, 'MY_SECRET_KEY');
-        res.send( { token });
+        res.status(201).json( { user: existingUser.toObject({ getters: true }), token } );
     } catch (err) {
         return res.status(422).send({ error: 'Invalid password or email' });
     } 

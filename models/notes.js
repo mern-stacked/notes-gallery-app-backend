@@ -6,9 +6,8 @@ const Schema = mongoose.Schema;
 const notesSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    file: { type: String, required: true },
     department: { type: String, required: true },
-    uploader: { type: String, required: true },
+    file: { type: Array, required: true },
     creator: { 
         type: mongoose.Types.ObjectId,
         required: true,

@@ -71,15 +71,13 @@ const createNotes = async (req, res, next) => {
         );
     }
 
-    const {title, description, file, uploader, department, creator } = req.body;
+    const {title, description, file, department, creator } = req.body;
     
     const createdNote = new Note({
         title,
         description,
-        file,
-        creator,
         department,
-        uploader
+        file,
     });
 
     // check if a user exists
