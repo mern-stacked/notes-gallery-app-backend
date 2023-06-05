@@ -78,6 +78,7 @@ const createNotes = async (req, res, next) => {
         description,
         department,
         file,
+        creator
     });
 
     // check if a user exists
