@@ -52,7 +52,7 @@ const getNotesByUserId = async (req, res, next) => {
         return next(error);
     }
 
-    console.log(userwithNotes)
+    console.log('User with notes' + userwithNotes)
 
     if(!userwithNotes || userwithNotes.length === 0){
         return next(
@@ -77,7 +77,7 @@ const createNotes = async (req, res, next) => {
         title,
         description,
         department,
-        file,
+        // file,
         creator
     });
 

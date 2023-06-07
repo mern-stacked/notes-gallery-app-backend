@@ -14,7 +14,7 @@ router.get('/user/:uid', notesControllers.getNotesByUserId);
 
 // Create a Note
 router.post('/', 
-            fileUpload.single('file'),
+            // fileUpload.single('file'),
             [
                 check('title')
                  .not()
@@ -25,9 +25,9 @@ router.post('/',
                 check('department')
                  .not()
                  .isEmpty(),
-                check('file')
-                 .not()
-                 .isEmpty()
+                // check('file')
+                //  .not()
+                //  .isEmpty()
             ],
             notesControllers.createNotes
         );
