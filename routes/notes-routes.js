@@ -15,20 +15,20 @@ router.get('/user/:uid', notesControllers.getNotesByUserId);
 // Create a Note
 router.post('/', 
             // fileUpload.single('file'),
-            // [
-            //     check('title')
-            //      .not()
-            //      .isEmpty(),
-            //     check('description')
-            //      .not()
-            //      .isEmpty(),
-            //     check('department')
-            //      .not()
-            //      .isEmpty(),
-            //     // check('file')
-            //     //  .not()
-            //     //  .isEmpty()
-            // ],
+            [
+                check('title')
+                 .not()
+                 .isEmpty(),
+                check('description')
+                 .not()
+                 .isEmpty(),
+                check('department')
+                 .not()
+                 .isEmpty(),
+                check('creator')
+                 .not()
+                 .isEmpty()
+            ],
             notesControllers.createNotes
         );
 

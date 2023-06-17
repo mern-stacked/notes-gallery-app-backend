@@ -28,7 +28,7 @@ const getNotesById = async (req, res, next) => {
     if(!note){
         // Not a network but couldnot find a place for the provided id 
         const error = new HttpError(
-            'Could not found find a place for the provided id.',
+            'Could not found find a note for the provided id.',
              404
         );
     return next(error);
@@ -43,7 +43,7 @@ const getNotesByUserId = async (req, res, next) => {
     let userwithNotes;  
      
     try{
-        userwithNotes = await Note.findById(userId).populate('notes');
+        userwithNotes = await User.findById(userId).populate('notes');
     } catch (err) {
         const error = new HttpError(
             'Fetching places failed, please try again later',
@@ -52,14 +52,13 @@ const getNotesByUserId = async (req, res, next) => {
         return next(error);
     }
 
-    console.log('User with notes' + userwithNotes)
 
     if(!userwithNotes || userwithNotes.length === 0){
         return next(
             new HttpError('No notes available of this user.', 404)
         );
     }
-    res.json({ notes: userwithNotes.map(note => note.toObject( { getters: true })) });
+    res.json({ notes: userwithNotes.notes.map(note => note.toObject( { getters: true })) });
 }
 
 const createNotes = async (req, res, next) => {
@@ -71,7 +70,7 @@ const createNotes = async (req, res, next) => {
         );
     }
 
-    const {title, description, file, department, creator } = req.body;
+    const {title, description, department, creator } = req.body;
     
     const createdNote = new Note({
         title,
@@ -181,7 +180,7 @@ const deleteNotes = async (req, res, next) => {
 
     if(!note){
         const error = new HttpError(
-            'Couldnot find place for this Id.', 
+            'Couldnot find note for this Id.', 
             404
         );
         return next(error);
