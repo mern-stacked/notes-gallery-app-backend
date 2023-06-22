@@ -20,7 +20,7 @@ app.use('/api/notes', notesRoutes);
 app.use('/api/users', userRoutes);
 
 app.use((req, res, next) => {
-    throw new HttpError('Unable to find the specified Route', 404);
+    throw new HttpError('This is a live, backend server URL, hosted over render.com', 404);
 })
 
 // Middleware for Error Handling
